@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Alexis Rauda\\source\\repos\\Backend\\Backend\\Backend.csproj": {}
+    "C:\\Users\\Alexis Rauda\\Music\\BackendPrograII\\Backend\\Backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Alexis Rauda\\source\\repos\\Backend\\Backend\\Backend.csproj": {
+    "C:\\Users\\Alexis Rauda\\Music\\BackendPrograII\\Backend\\Backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Alexis Rauda\\source\\repos\\Backend\\Backend\\Backend.csproj",
+        "projectUniqueName": "C:\\Users\\Alexis Rauda\\Music\\BackendPrograII\\Backend\\Backend.csproj",
         "projectName": "Backend",
-        "projectPath": "C:\\Users\\Alexis Rauda\\source\\repos\\Backend\\Backend\\Backend.csproj",
+        "projectPath": "C:\\Users\\Alexis Rauda\\Music\\BackendPrograII\\Backend\\Backend.csproj",
         "packagesPath": "C:\\Users\\Alexis Rauda\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Alexis Rauda\\source\\repos\\Backend\\Backend\\obj\\",
+        "outputPath": "C:\\Users\\Alexis Rauda\\Music\\BackendPrograII\\Backend\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

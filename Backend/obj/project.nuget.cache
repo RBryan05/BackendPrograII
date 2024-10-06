@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "dCEx4B9CwKI=",
+  "dgSpecHash": "FNeLRfYRaXI=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Alexis Rauda\\source\\repos\\Backend\\Backend\\Backend.csproj",
+  "projectFilePath": "C:\\Users\\Alexis Rauda\\Music\\BackendPrograII\\Backend\\Backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Alexis Rauda\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "C:\\Users\\Alexis Rauda\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
