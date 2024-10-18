@@ -125,6 +125,22 @@
   },
   {
     "ContainingType": "Backend.Controllers.PersonaController",
+    "Method": "Add",
+    "RelativePath": "api/Persona",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "gente",
+        "Type": "PersonaDatos",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend.Controllers.PersonaController",
     "Method": "GetPersonaDatos",
     "RelativePath": "api/Persona/{id}",
     "HttpMethod": "GET",
@@ -186,6 +202,26 @@
     "ReturnTypes": [
       {
         "Type": "System.Collections.Generic.List\u00601[[PersonaDatos, Backend, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Backend.Controllers.RandomControlLer",
+    "Method": "Get",
+    "RelativePath": "api/Random",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.Dictionary\u00602[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
