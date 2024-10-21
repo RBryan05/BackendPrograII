@@ -1,5 +1,6 @@
 using Backend.Services;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,9 @@ builder.Services.AddKeyedScoped<IRandomService, RandomService>("randomScoped");
 builder.Services.AddKeyedTransient<IRandomService, RandomService>("randomTransient");
 
 builder.Services.AddScoped<IPostService, PostService>();
+
+// La URL esta definida en el archivo appsettings.json
+builder.Services.AddHttpClient<IPostService, PostService>(c => c.BaseAddress = new Uri(builder.Configuration["BaseUrlPost"]));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
