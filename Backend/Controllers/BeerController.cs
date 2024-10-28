@@ -78,6 +78,7 @@ namespace Backend.Controllers
             };
             return CreatedAtAction(nameof(GetById), new {id = beer.BeerId}, beerDto);
         }
+        // Hubo una confucion y se realizo la guia 20 antes que la 19, este metodo se creo en la guia 20 cuando se creaba en la 19
         [HttpPut("{id}")]
         public async Task<ActionResult<BeerDto>> Update(int id, BeerUpdateDto beerUpdateDto)
         {
