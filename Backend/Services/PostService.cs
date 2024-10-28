@@ -11,7 +11,6 @@ namespace Backend.Services
         {
             _httpClient = httpClient;
         }
-
         public async Task<IEnumerable<PostDto>> Get()
         {
             var result = await _httpClient.GetAsync(_httpClient.BaseAddress);

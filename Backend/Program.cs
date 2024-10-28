@@ -1,4 +1,6 @@
+using Backend.Models;
 using Backend.Services;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
@@ -15,10 +17,16 @@ builder.Services.AddKeyedSingleton<IRandomService, RandomService>("randomSinglet
 builder.Services.AddKeyedScoped<IRandomService, RandomService>("randomScoped");
 builder.Services.AddKeyedTransient<IRandomService, RandomService>("randomTransient");
 
+builder.Services.AddDbContext<StoreContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("StoreConnections"));
+});
+
 builder.Services.AddScoped<IPostService, PostService>();
 
 // La URL esta definida en el archivo appsettings.json
-builder.Services.AddHttpClient<IPostService, PostService>(c => c.BaseAddress = new Uri(builder.Configuration["BaseUrlPost"]));
+builder.Services.AddHttpClient<IPostService, PostService>
+    (c => c.BaseAddress = new Uri(builder.Configuration["BaseUrlPost"]));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
