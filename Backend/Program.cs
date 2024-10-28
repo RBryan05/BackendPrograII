@@ -1,5 +1,8 @@
+using Backend.DTOs;
 using Backend.Models;
 using Backend.Services;
+using Backend.Validators;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -16,6 +19,10 @@ builder.Services.AddKeyedSingleton<IPersonaServices, PersonaService2>("personase
 builder.Services.AddKeyedSingleton<IRandomService, RandomService>("randomSingleton");
 builder.Services.AddKeyedScoped<IRandomService, RandomService>("randomScoped");
 builder.Services.AddKeyedTransient<IRandomService, RandomService>("randomTransient");
+
+// Validadores
+builder.Services.AddScoped<IValidator<BeerInsertDto>, BeerInsertValidator>();
+builder.Services.AddScoped<IValidator<BeerUpdateDto>, BeerUpdateValidator>();
 
 builder.Services.AddDbContext<StoreContext>(options =>
 {

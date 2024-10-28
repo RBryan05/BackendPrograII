@@ -1,5 +1,6 @@
 ﻿using Backend.DTOs;
 using Backend.Models;
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,10 +12,14 @@ namespace Backend.Controllers
     public class BeerController : ControllerBase
     {
         private StoreContext _storeContext;
+        private IValidator<BeerInsertDto> _beerInsertValidator;
+        private IValidator<BeerUpdateDto> _beerUpdateValidator;
 
-        public BeerController(StoreContext storeContext)
+        public BeerController(StoreContext storeContext, IValidator<BeerInsertDto> beerInsertValidator, IValidator<BeerUpdateDto> beerUpdateValidator)
         {
             _storeContext = storeContext;
+            _beerInsertValidator = beerInsertValidator;
+            _beerUpdateValidator = beerUpdateValidator;
         }
 
         [HttpGet]
@@ -50,6 +55,11 @@ namespace Backend.Controllers
         [HttpPost]
         public async Task<ActionResult<BeerDto>> Add(BeerInsertDto beerInsertDto)
         {
+            var validationResult = await _beerInsertValidator.ValidateAsync(beerInsertDto);
+            if(!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.Errors);
+            }
             var beer = new Beer() 
             {
                 Name = beerInsertDto.Name,
@@ -67,6 +77,34 @@ namespace Backend.Controllers
                 Al = beerInsertDto.Al
             };
             return CreatedAtAction(nameof(GetById), new {id = beer.BeerId}, beerDto);
+        }
+        [HttpPut("{id}")]
+        public async Task<ActionResult<BeerDto>> Update(int id, BeerUpdateDto beerUpdateDto)
+        {
+            var validationResult = await _beerUpdateValidator.ValidateAsync(beerUpdateDto);
+            if(!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.Errors);
+            }
+            var beer = await _storeContext.Beers.FindAsync(id);
+            if (beer == null)
+            {
+                return NotFound();
+            }
+
+            beer.Name = beerUpdateDto.Name;
+            beer.Al = beerUpdateDto.Al;
+            beer.BrandId = beerUpdateDto.BrandId;
+
+            await _storeContext.SaveChangesAsync();
+            var beerDto = new BeerDto
+            {
+                Id = beer.BeerId,
+                Name = beer.Name,
+                BrandId = beer.BrandId,
+                Al = beer.Al
+            };
+            return Ok(beerDto);
         }
     }
 }
