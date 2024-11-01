@@ -27,32 +27,14 @@ namespace Backend.Controllers
 
         [HttpGet]
         public async Task<IEnumerable<BeerDto>> Get() =>
-            await _storeContext.Beers.Select(x => new BeerDto
-            {
-                Id = x.BeerId,
-                Al = x.Al,
-                BrandId = x.BrandId,
-                Name = x.Name
-            }).ToListAsync();
+            await _beerService.Get();
 
         [HttpGet("id")]
         public async Task<ActionResult<BeerDto>> GetById(int id)
         {
-            var beer = await _storeContext.Beers.FindAsync(id);
-            if (beer == null)
-            {
-                return NotFound();
-            }
+            var beerDto = await _beerService.GetById(id);
 
-            var beerDto = new BeerDto
-            {
-                Id = beer.BeerId,
-                Al = beer.Al,
-                BrandId = beer.BrandId,
-                Name = beer.Name
-            };
-
-            return Ok(beerDto);
+            return beerDto == null ? NotFound() : Ok(beerDto);
         }
 
         [HttpPost]
@@ -63,23 +45,8 @@ namespace Backend.Controllers
             {
                 return BadRequest(validationResult.Errors);
             }
-            var beer = new Beer() 
-            {
-                Name = beerInsertDto.Name,
-                BrandId = beerInsertDto.BrandId,
-                Al = beerInsertDto.Al
-            };
-            await _storeContext.AddAsync(beer);
-            await _storeContext.SaveChangesAsync();
-
-            var beerDto = new BeerDto()
-            {
-                Id = beer.BeerId,
-                Name = beerInsertDto.Name,
-                BrandId = beerInsertDto.BrandId,
-                Al = beerInsertDto.Al
-            };
-            return CreatedAtAction(nameof(GetById), new {id = beer.BeerId}, beerDto);
+            var beerDto = await _beerService.Insert(beerInsertDto);
+            return CreatedAtAction(nameof(GetById), new {id = beerDto.Id}, beerDto);
         }
         // Hubo una confucion y se realizo la guia 20 antes que la 19, este metodo se creo en la guia 20 cuando se creaba en la 19
         [HttpPut("{id}")]
@@ -90,25 +57,16 @@ namespace Backend.Controllers
             {
                 return BadRequest(validationResult.Errors);
             }
-            var beer = await _storeContext.Beers.FindAsync(id);
-            if (beer == null)
-            {
-                return NotFound();
-            }
 
-            beer.Name = beerUpdateDto.Name;
-            beer.Al = beerUpdateDto.Al;
-            beer.BrandId = beerUpdateDto.BrandId;
+            var beerDto = await _beerService.Update(id, beerUpdateDto);
+            return beerDto == null ? NotFound() : Ok(beerDto);
+        }
 
-            await _storeContext.SaveChangesAsync();
-            var beerDto = new BeerDto
-            {
-                Id = beer.BeerId,
-                Name = beer.Name,
-                BrandId = beer.BrandId,
-                Al = beer.Al
-            };
-            return Ok(beerDto);
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<BeerDto>> Delete(int id)
+        {
+           var beerdto = await _beerService.Delete(id);
+            return beerdto == null ? NotFound() : Ok(beerdto);
         }
     }
 }
