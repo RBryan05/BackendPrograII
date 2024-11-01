@@ -31,6 +31,8 @@ builder.Services.AddDbContext<StoreContext>(options =>
 
 builder.Services.AddScoped<IPostService, PostService>();
 
+builder.Services.AddScoped<IBeerService, BeerService>();
+
 // La URL esta definida en el archivo appsettings.json
 builder.Services.AddHttpClient<IPostService, PostService>
     (c => c.BaseAddress = new Uri(builder.Configuration["BaseUrlPost"]));
